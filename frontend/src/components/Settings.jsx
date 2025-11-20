@@ -80,9 +80,15 @@ function Settings({ isOpen, onClose }) {
 
     return (
         <div className="settings-overlay" onClick={onClose}>
-            <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+            <div
+                className="settings-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="settings-modal-title"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <div className="settings-header">
-                    <h2>⚙️ API Configuration</h2>
+                    <h2 id="settings-modal-title">⚙️ API Configuration</h2>
                     <button className="close-btn" onClick={onClose}>✕</button>
                 </div>
 
