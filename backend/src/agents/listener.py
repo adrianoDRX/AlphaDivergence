@@ -6,6 +6,7 @@ import requests
 from dotenv import load_dotenv
 from src.services.llm import LLMService
 from src.utils.logger import get_logger
+from src.utils.security import sanitize_error_message
 
 load_dotenv()
 logger = get_logger(__name__)
@@ -30,7 +31,8 @@ class ListenerAgent:
                     user_agent=reddit_user_agent
                 )
             except Exception as e:
-                logger.error(f"[{self.name}] Failed to initialize Reddit: {e}")
+                sanitized_error = sanitize_error_message(e, [reddit_client_id, reddit_client_secret])
+                logger.error(f"[{self.name}] Failed to initialize Reddit: {sanitized_error}")
 
     def _fetch_reddit_rss(self, token_symbol: str):
         """
