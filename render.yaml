@@ -38,8 +38,4 @@ services:
           type: web
           name: alphadivergence-backend
           envVarKey: RENDER_EXTERNAL_URL
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: https://alphadivergence-backend.onrender.com/*
     autoDeploy: true
