@@ -9,14 +9,14 @@ load_dotenv()
 logger = get_logger(__name__)
 
 class LLMService:
-    def __init__(self):
+    def __init__(self, openai_key: str = None, gemini_key: str = None):
         self.provider = None
         self.client = None
         self.model = None
         
-        # Check for OpenAI Key first (Priority)
-        openai_key = os.getenv("OPENAI_API_KEY")
-        gemini_key = os.getenv("GEMINI_API_KEY")
+        # Priority: Passed keys → Environment variables
+        openai_key = openai_key or os.getenv("OPENAI_API_KEY")
+        gemini_key = gemini_key or os.getenv("GEMINI_API_KEY")
 
         if openai_key:
             self.provider = "openai"

@@ -11,18 +11,23 @@ load_dotenv()
 logger = get_logger(__name__)
 
 class ListenerAgent:
-    def __init__(self):
+    def __init__(self, reddit_client_id: str = None, reddit_client_secret: str = None, 
+                 reddit_user_agent: str = None, openai_key: str = None, gemini_key: str = None):
         self.name = "The Listener"
-        self.llm = LLMService()
+        self.llm = LLMService(openai_key=openai_key, gemini_key=gemini_key)
         
-        # Initialize Reddit
+        # Initialize Reddit - Priority: Passed credentials → Environment variables
         self.reddit = None
-        if os.getenv("REDDIT_CLIENT_ID") and os.getenv("REDDIT_CLIENT_SECRET"):
+        reddit_client_id = reddit_client_id or os.getenv("REDDIT_CLIENT_ID")
+        reddit_client_secret = reddit_client_secret or os.getenv("REDDIT_CLIENT_SECRET")
+        reddit_user_agent = reddit_user_agent or os.getenv("REDDIT_USER_AGENT", "AlphaDivergence/1.0")
+        
+        if reddit_client_id and reddit_client_secret:
             try:
                 self.reddit = praw.Reddit(
-                    client_id=os.getenv("REDDIT_CLIENT_ID"),
-                    client_secret=os.getenv("REDDIT_CLIENT_SECRET"),
-                    user_agent=os.getenv("REDDIT_USER_AGENT", "AlphaDivergence/1.0")
+                    client_id=reddit_client_id,
+                    client_secret=reddit_client_secret,
+                    user_agent=reddit_user_agent
                 )
             except Exception as e:
                 logger.error(f"[{self.name}] Failed to initialize Reddit: {e}")

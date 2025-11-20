@@ -1,9 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 from src.agents.listener import ListenerAgent
 from src.agents.analyst import AnalystAgent
 from src.agents.judge import JudgeAgent
+from typing import Optional
 import os
 
 app = FastAPI(
@@ -20,11 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize Agents
-listener = ListenerAgent()
-analyst = AnalystAgent()
-judge = JudgeAgent()
-
 @app.get("/")
 def read_root():
     return {"message": "AlphaDivergence Backend is running"}
@@ -39,10 +35,30 @@ async def health_check():
     }
 
 @app.get("/analyze/{token}")
-def analyze_token(token: str):
+def analyze_token(
+    token: str,
+    x_openai_key: Optional[str] = Header(None, alias="X-OpenAI-Key"),
+    x_gemini_key: Optional[str] = Header(None, alias="X-Gemini-Key"),
+    x_etherscan_key: Optional[str] = Header(None, alias="X-Etherscan-Key"),
+    x_reddit_client_id: Optional[str] = Header(None, alias="X-Reddit-Client-Id"),
+    x_reddit_client_secret: Optional[str] = Header(None, alias="X-Reddit-Client-Secret"),
+    x_reddit_user_agent: Optional[str] = Header(None, alias="X-Reddit-User-Agent")
+):
     """
     Orchestrates the agents to analyze a token.
+    Accepts API keys via headers (X-OpenAI-Key, X-Gemini-Key, etc.) or falls back to environment variables.
     """
+    # Initialize Agents with optional API keys from headers
+    listener = ListenerAgent(
+        reddit_client_id=x_reddit_client_id,
+        reddit_client_secret=x_reddit_client_secret,
+        reddit_user_agent=x_reddit_user_agent,
+        openai_key=x_openai_key,
+        gemini_key=x_gemini_key
+    )
+    analyst = AnalystAgent(etherscan_api_key=x_etherscan_key)
+    judge = JudgeAgent(openai_key=x_openai_key, gemini_key=x_gemini_key)
+    
     # 1. Listener Agent
     hype_data = listener.analyze_sentiment(token)
     
