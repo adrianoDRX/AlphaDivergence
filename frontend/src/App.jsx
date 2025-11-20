@@ -82,7 +82,7 @@ function App() {
           placeholder="Enter Token Symbol (e.g. PEPE)"
           value={token}
           onChange={(e) => setToken(e.target.value.toUpperCase())}
-          onKeyPress={(e) => e.key === 'Enter' && handleAnalyze()}
+          onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
         />
         <button onClick={handleAnalyze} disabled={loading}>
           {loading ? "Analyzing..." : "Analyze"}
