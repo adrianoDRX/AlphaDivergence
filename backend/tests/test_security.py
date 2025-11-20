@@ -53,10 +53,22 @@ def test_sanitize_preserves_safe_text():
     print("✓ Safe text is preserved")
 
 
+def test_sanitize_preserves_uuids():
+    """Test that UUIDs and other non-key identifiers are preserved"""
+    # UUIDs typically don't have both letters and numbers in long sequences
+    uuid = "550e8400-e29b-41d4-a716-446655440000"
+    text = f"Error processing request {uuid}"
+    result = sanitize_api_key(text)
+    # UUID should be preserved since it has dashes every 8-12 chars
+    assert uuid in result
+    print("✓ UUIDs are preserved")
+
+
 if __name__ == "__main__":
     test_sanitize_api_key_with_openai_key()
     test_sanitize_api_key_with_generic_key()
     test_sanitize_api_key_with_specific_value()
     test_sanitize_error_message()
     test_sanitize_preserves_safe_text()
+    test_sanitize_preserves_uuids()
     print("\n✅ All security tests passed!")

@@ -28,9 +28,15 @@ def sanitize_api_key(text: str, key_value: str = None) -> str:
     # OpenAI keys: sk-... or sk-proj-...
     text = re.sub(r'sk-[a-zA-Z0-9\-]{20,}', 'sk-****REDACTED****', text)
     
-    # Generic long alphanumeric strings that look like keys (20+ chars)
-    # Be conservative to avoid false positives
-    text = re.sub(r'\b[a-zA-Z0-9_\-]{32,}\b', '****REDACTED****', text)
+    # Generic long alphanumeric strings that look like keys (40+ chars with mix of letters/numbers/underscores)
+    # More conservative threshold to reduce false positives
+    # Only redact if it has both letters and numbers (more likely to be a key)
+    pattern = r'\b[a-zA-Z0-9_\-]{40,}\b'
+    for match in re.finditer(pattern, text):
+        matched_text = match.group(0)
+        # Only redact if it contains both letters and numbers
+        if re.search(r'[a-zA-Z]', matched_text) and re.search(r'[0-9]', matched_text):
+            text = text.replace(matched_text, '****REDACTED****', 1)
     
     return text
 

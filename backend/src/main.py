@@ -52,10 +52,11 @@ def analyze_token(
     Orchestrates the agents to analyze a token.
     Accepts API keys via headers (X-OpenAI-Key, X-Gemini-Key, etc.) or falls back to environment variables.
     """
-    # Collect sensitive values for potential sanitization
+    # Collect sensitive values for potential sanitization (filter out None values)
     sensitive_values = [
-        x_openai_key, x_gemini_key, x_etherscan_key,
-        x_reddit_client_id, x_reddit_client_secret
+        v for v in [x_openai_key, x_gemini_key, x_etherscan_key,
+                    x_reddit_client_id, x_reddit_client_secret]
+        if v is not None
     ]
     
     # Initialize Agents with optional API keys from headers
